@@ -7,25 +7,20 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col width-33>col 1</ion-col>
-      <ion-col width-33>col 2</ion-col>
-      <ion-col width-33>col 3</ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col width-33>col 2</ion-col>
-      <ion-col width-33>col 2</ion-col>
-      <ion-col width-33>col 2</ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col width-33>col 2</ion-col>
-      <ion-col width-33>col 2</ion-col>
-      <ion-col width-33>col 2</ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-list>
+    <ion-item-group reorder="true" (ionItemReorder)="$event.applyTo(animals)">
+      <ion-item *ngFor="let animal of animals; let pos=index">
+        <ion-thumbnail item-left (click)="guess(pos)">
+          <img src="/assets/{{ animal.image }}">
+        </ion-thumbnail>
+        <h2> {{ animal.title }} </h2>
+        <p> {{ animal.desc }} </p>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
 </ion-content>
 
 <ion-footer padding>
+  <p class="message">{{ result }}</p>
   <button ion-button (click)="playSound()">Jouer le son</button>
 </ion-footer>
