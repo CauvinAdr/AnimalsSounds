@@ -73,7 +73,7 @@ export class HomePage {
     }
   ];
 
-  private currentPosition: number;
+  private currentAnimal;
   public result: string;
   public showReorder: false;
 
@@ -84,25 +84,26 @@ export class HomePage {
   /**
    * Choix aléatoire d'un animal
    */
-  pickAnimalPosition() {
+  pickAnimal() {
     let pos;
-    if (!this.currentPosition) {
+    let animal;
+    if (!this.currentAnimal) {
       pos = Math.floor(Math.random() * this.animals.length);
+      animal = this.animals[pos];
     } else {
-      pos = this.currentPosition;
+      animal = this.currentAnimal;
     }
-    return pos;
+    return animal;
   }
 
   playSound() {
     this.result = "";
     //Choix d'un son
-    this.currentPosition = this.pickAnimalPosition();
-    let choosenAnimal = this.animals[this.currentPosition];
-
+    this.currentAnimal = this.pickAnimal();
+ 
     //Chargement du son
     let audio = new Audio();
-    audio.src = 'assets' + choosenAnimal.file;
+    audio.src = 'assets' + this.currentAnimal.file;
     audio.load();
 
     //Lecture du son
@@ -113,14 +114,14 @@ export class HomePage {
    * Deviner l'animal en fonction de son cri
    * @param pos 
    */
-  guess(pos) {
+  guess(animalName) {
     //Est ce qu'un son a été joué
-    if (this.currentPosition) {
+    if (this.currentAnimal) {
       //Est ce que le bon animal a été choisi
-      if (pos == this.currentPosition) {
+      if (animalName == this.currentAnimal.title) {
         this.result = "Gagné";
         //Réinitialisation du choix pour jouer encore
-        this.currentPosition = null;
+        this.currentAnimal = null;
       } else {
         this.result = "Essaies encore";
       }
