@@ -75,6 +75,7 @@ export class HomePage {
 
   private currentPosition: number;
   public result: string;
+  public showReorder: false;
 
   constructor(public navCtrl: NavController) {
 
